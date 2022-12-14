@@ -1,16 +1,42 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 bg-white rounded elevation-3">
-      <img
-        src="https://bcw.blob.core.windows.net/public/img/8600856373152463"
-        alt="CodeWorks Logo"
-        class="rounded-circle"
-      >
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
-    </div>
+  <div class="container-fluid">
+    <section class="row">
+      <div class="col-12 bg-image my-3 elevation-2">
+        <section class="row">
+          <div class="col-lg-4 col-12 text-light box-shadow-1 ms-2 ms-md-5">
+            <h4 class="mt-5">Get ahead of the scalpers.
+            </h4>
+            <h4>Reserve your seat now with
+            </h4>
+            <h4>real events for real people.
+            </h4>
+          </div>
+        </section>
+      </div>
+      <div class="col-md-6 col-12 d-flex bg-dark justify-content-between p-md-0 px-4 elevation-3">
+        <button class="btn btn-outline-light my-2 me-1 ms-2 stnd-w">All</button>
+        <button class="btn btn-outline-light my-2 mx-1 stnd-w">Concerts</button>
+        <button class="btn btn-outline-light my-2 mx-1 stnd-w">Conventions</button>
+        <button class="btn btn-outline-light my-2 mx-1 stnd-w">Digital</button>
+      </div>
+      <div class="col-md-6 col-12 d-flex bg-dark justify-content-between p-md-0 px-4 elevation-3">
+
+        <button class="btn btn-outline-light my-2 mx-1 stnd-w">Exhibits</button>
+        <button class="btn btn-outline-light my-2 mx-1 stnd-w">Expos</button>
+        <button class="btn btn-outline-light my-2 mx-1 stnd-w">Sports</button>
+        <button class="btn btn-outline-light my-2 ms-1 me-2 stnd-w">Other</button>
+      </div>
+
+      <div class="col-12">
+        <section class="row">
+          <div class="col-3">
+
+          </div>
+        </section>
+      </div>
+    </section>
   </div>
+
 </template>
 
 <script>
@@ -22,23 +48,32 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home {
-  display: grid;
-  height: 80vh;
-  place-content: center;
-  text-align: center;
-  user-select: none;
+.bg-image {
+  background-image: url('https://images.unsplash.com/photo-1557787163-1635e2efb160?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1473&q=80');
+  background-position: center;
+  background-size: cover;
+  min-height: 35vh;
+  max-width: 90vw;
+  border: 1px solid rgb(0, 200, 255);
+}
 
-  .home-card {
-    width: 50vw;
-
-    >img {
-      height: 200px;
-      max-width: 200px;
-      width: 100%;
-      object-fit: contain;
-      object-position: center;
-    }
+@media (max-width: 992px) {
+  .bg-image {
+    background-image: url('https://images.unsplash.com/photo-1557787163-1635e2efb160?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1473&q=80');
+    background-position: center;
+    background-size: cover;
+    min-height: 35vh;
+    max-width: 120vw;
+    border: 1px solid rgb(0, 200, 255);
   }
+
+}
+
+.box-shadow-1 {
+  text-shadow: 2px 2px rgb(10, 10, 10);
+}
+
+.stnd-w {
+  width: 18vh;
 }
 </style>

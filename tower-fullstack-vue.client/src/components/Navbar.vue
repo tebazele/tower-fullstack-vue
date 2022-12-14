@@ -1,32 +1,24 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex flex-column align-items-center">
-        <img alt="logo" src="../assets/img/cw-logo.png" height="45" />
+      <div class="d-flex align-items-end">
+        <img alt="logo" src="../assets/img/giraffe.png" height="60" class="pb-1" />
+        <h1 class="yatra-one pt-2">TOWER</h1>
       </div>
     </router-link>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarText"
-      aria-controls="navbarText"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
+    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
-          </router-link>
+
         </li>
       </ul>
-      <!-- LOGIN COMPONENT HERE -->
-      <Login />
-    </div>
+       LOGIN COMPONENT HERE 
+     <Login /> 
+    </div> -->
   </nav>
 </template>
 
@@ -57,8 +49,7 @@ a:hover {
 
 @media screen and (min-width: 768px) {
   nav {
-    height: 64px;
+    height: 75px;
   }
 }
-
 </style>

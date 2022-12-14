@@ -5,14 +5,15 @@
       Login
     </button>
     <div v-else>
-      <div class="dropdown dropstart my-2 my-lg-0">
-        <div type="button" class="bg-dark border-0 selectable no-select" data-bs-toggle="dropdown"
-          aria-expanded="false">
-          <div v-if="account.picture || user.picture">
-            <img :src="account.picture || user.picture" alt="account photo" height="40" class="rounded" />
-          </div>
-        </div>
-        <div class="dropdown-menu dropdown-menu-lg-left p-0" aria-labelledby="authDropdown">
+      <!-- <div class="dropdown dropstart my-2 my-lg-0"> -->
+      <!-- <div type="button" class="bg-dark border-0 selectable no-select" data-bs-toggle="dropdown"
+          aria-expanded="false"> -->
+      <div v-if="account.picture || user.picture">
+        <img :src="account.picture || user.picture" alt="account photo" height="80"
+          class="rounded elevation-5 pt-2 pt-md-0" />
+      </div>
+      <!-- </div> -->
+      <!-- <div class="dropdown-menu dropdown-menu-lg-left p-0" aria-labelledby="authDropdown">
           <div class="list-group">
             <router-link :to="{ name: 'Account' }">
               <div class="list-group-item dropdown-item list-group-item-action">
@@ -24,7 +25,22 @@
               logout
             </div>
           </div>
-        </div>
+        </div> -->
+      <!-- </div> -->
+      <div class="my-4">
+        <router-link :to="{ name: 'Home' }">
+          <p>
+            Home
+          </p>
+        </router-link>
+        <router-link :to="{ name: 'Account' }">
+          <p>
+            Account
+          </p>
+        </router-link>
+        <button class="btn btn-success mb-md-3 me-2 me-md-0" data-bs-toggle="modal" data-bs-target="#createEvent"><span
+            class="mdi mdi-plus"> Event</span></button>
+        <button class="btn btn-outline-light" @click="logout">Logout</button>
       </div>
     </div>
   </span>
@@ -51,4 +67,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>
