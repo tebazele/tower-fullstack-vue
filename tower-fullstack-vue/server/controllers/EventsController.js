@@ -10,6 +10,8 @@ export class EventsController extends BaseController {
             .get('/:id', this.getEventById)
             .use(Auth0Provider.getAuthorizedUserInfo)
             .post('', this.createEvent)
+            .put('/:id', this.editEvent)
+            .delete('/:id', this.archiveEvent)
     }
 
     async getAllEvents(req, res, next) {
@@ -39,5 +41,23 @@ export class EventsController extends BaseController {
             next(error)
         }
 
+    }
+
+    async editEvent(req, res, next) {
+        try {
+            const updated = await eventsService.editEvent(req.userInfo.id, req.params.id, req.body)
+            return res.send(updated)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async archiveEvent(req, res, next) {
+        try {
+            const archivedEvent = await eventsService.archiveEvent(req.userInfo.id, req.params.id)
+            return res.send(archivedEvent)
+        } catch (error) {
+            next(error)
+        }
     }
 }
