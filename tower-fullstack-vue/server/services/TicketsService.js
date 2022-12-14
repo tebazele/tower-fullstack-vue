@@ -1,5 +1,5 @@
 import { dbContext } from "../db/DbContext.js"
-import { Forbidden } from "../utils/Errors.js"
+import { BadRequest, Forbidden } from "../utils/Errors.js"
 import { eventsService } from "./EventsService.js"
 
 class TicketsService {
@@ -18,6 +18,29 @@ class TicketsService {
     async getMyEvents(accountId) {
         const myTicketsArray = await dbContext.Tickets.find({ accountId }).populate('event')
         return myTicketsArray
+    }
+
+    async getEventAttendees(eventId) {
+        let tickets = await dbContext.Tickets.find({ eventId }).populate('profile')
+        return tickets
+    }
+
+    async removeTicket(userId, ticketId) {
+        const foundTicket = await dbContext.Tickets.findById(ticketId)
+        if (!foundTicket) throw new BadRequest(`no ticket at id: ${ticketId}`)
+        // @ts-ignore
+        if (foundTicket.accountId.toString() != userId) throw new Forbidden(`Cannot delete tickets for someone else`)
+
+        const event = await eventsService.getEventById(foundTicket.eventId)
+        if (event.isCanceled) throw new Forbidden('This event is canceled. All tickets will be refunded.')
+
+        await foundTicket.remove()
+        // @ts-ignore
+        event.capacity += 1
+        await event.save()
+
+        return `You are no longer attending ${event.name}`
+
     }
 
 }
