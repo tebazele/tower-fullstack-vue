@@ -3,7 +3,7 @@
     <section class="row">
       <div class="col-12 bg-image my-3 elevation-2">
         <section class="row">
-          <div class="col-lg-4 col-12 text-light box-shadow-1 ms-2 ms-md-5">
+          <div class="col-lg-5 col-12 text-light box-shadow-1 ms-2 ms-md-5">
             <h4 class="mt-5">Get ahead of the scalpers.
             </h4>
             <h4>Reserve your seat now with
@@ -14,23 +14,26 @@
         </section>
       </div>
       <div class="col-md-6 col-12 d-flex bg-dark justify-content-between p-md-0 px-4 elevation-3">
-        <button class="btn btn-outline-light my-2 me-1 ms-2 stnd-w">All</button>
+        <button class="btn btn-outline-light my-2 me-1 ms-3 stnd-w">All</button>
         <button class="btn btn-outline-light my-2 mx-1 stnd-w">Concerts</button>
         <button class="btn btn-outline-light my-2 mx-1 stnd-w">Conventions</button>
-        <button class="btn btn-outline-light my-2 mx-1 stnd-w">Digital</button>
+        <button class="btn btn-outline-light my-2 me-4 ms-1 stnd-w">Digital</button>
       </div>
       <div class="col-md-6 col-12 d-flex bg-dark justify-content-between p-md-0 px-4 elevation-3">
 
-        <button class="btn btn-outline-light my-2 mx-1 stnd-w">Exhibits</button>
+        <button class="btn btn-outline-light my-2 me-1 ms-4 stnd-w">Exhibits</button>
         <button class="btn btn-outline-light my-2 mx-1 stnd-w">Expos</button>
         <button class="btn btn-outline-light my-2 mx-1 stnd-w">Sports</button>
-        <button class="btn btn-outline-light my-2 ms-1 me-2 stnd-w">Other</button>
+        <button class="btn btn-outline-light my-2 ms-1 me-3 stnd-w">Other</button>
       </div>
 
-      <div class="col-12">
+      <div class="col-12 mt-4">
         <section class="row">
-          <div class="col-3">
+          <!-- v-if="events" -->
+          <div v-for="e in events" :key="e.id" class="col-3">
+            <!-- {{ e.name }} -->
 
+            <EventCard :event="e" />
           </div>
         </section>
       </div>
@@ -40,10 +43,31 @@
 </template>
 
 <script>
+import { computed, onMounted } from '@vue/runtime-core'
+import { eventsService } from '../services/EventsService.js'
+import { logger } from '../utils/Logger.js'
+import Pop from '../utils/Pop.js'
+import { AppState } from '../AppState.js'
+import EventCard from '../components/EventCard.vue'
 export default {
   setup() {
-    return {}
-  }
+    async function getEvents() {
+      try {
+        await eventsService.getEvents()
+      } catch (error) {
+        logger.error(error)
+        Pop.error(error)
+      }
+    }
+
+    onMounted(() => {
+      getEvents();
+    });
+    return {
+      events: computed(() => AppState.events)
+    }
+  },
+  components: { EventCard }
 }
 </script>
 

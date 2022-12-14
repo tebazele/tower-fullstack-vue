@@ -7,7 +7,7 @@
       <div class="col-md-11 col-12 order-2 order-md-1">
         <router-view />
       </div>
-      <div class="col-md-1 col-12 bg-dark text-center order-1 order-md-2">
+      <div class="col-md-1 col-12 bg-dark text-center order-1 order-md-2 full-height">
         <Login />
       </div>
     </section>
@@ -55,7 +55,7 @@ footer {
   height: 32px;
 }
 
-// .full-height {
-//   min-height: 100vh;
-// }
+.full-height {
+  min-height: 100vh;
+}
 </style>
