@@ -3,12 +3,12 @@
         <section class="row justify-content-center" v-if="activeEvent.id">
             <div class="col-12 details-bg my-3" :class="{ 'details-bg-image': activeEvent }"></div>
         </section>
-        <div class="pos-abs border-blue p-5 my-2">
-            <section class="row">
+        <div class="pos-abs border-blue p-4 my-2">
+            <section class="row justify-content-between">
 
-                <img :src="activeEvent.coverImg" class="col-4 p-0 img-fluid border-blue" />
+                <img :src="activeEvent.coverImg" class="col-4 p-0 ms-4 img-fluid border-blue" />
 
-                <div class="col-8 text-light">
+                <div class="col-7 text-light">
                     <section class="row">
                         <!-- FIXME only owner can cancel event, also work on colors-->
                         <div class="col-12 text-end">
@@ -35,12 +35,28 @@
                             }}</h6>
                         </div>
                     </section>
+                    <section class="row">
+                        <div class="col-12">
+                            <p>{{ activeEvent.description }}</p>
+                        </div>
+                    </section>
+                    <section class="row justify-content-between align-items-end">
+                        <div class="col-5">
+                            {{ activeEvent.capacity }} Spots Left
+                        </div>
+                        <div class="col-3 text-end">
+                            <button class="btn btn-warning me-3">Attend Event</button>
+                        </div>
+                    </section>
 
 
-                    <p>{{ activeEvent.description }}</p>
 
                 </div>
+
+
+
             </section>
+
 
         </div>
 
@@ -142,7 +158,7 @@ export default {
     top: 8px;
     left: 0;
     background-color: #122f787a;
-    max-height: 360px;
+    height: 360px;
     // border: 1px solid rgb(0, 200, 255);
 }
 
