@@ -11,7 +11,8 @@
                 <div class="col-7 text-light">
                     <section class="row">
                         <!-- FIXME only owner can cancel event, also work on colors-->
-                        <div class="col-12 text-end">
+                        <div v-if="account.id == activeEvent.creatorId" class="col-12 text-end">
+                            <button class="btn btn-info me-3">Update Event</button>
                             <button class="btn btn-danger m-3">Cancel Event</button>
                         </div>
                     </section>
@@ -115,6 +116,7 @@ export default {
             getEventById()
         })
         return {
+            account: computed(() => AppState.account),
             activeEvent: computed(() => AppState.activeEvent),
             coverImg: computed(() => {
                 if (AppState.activeEvent) {
@@ -159,6 +161,7 @@ export default {
     left: 0;
     background-color: #122f787a;
     height: 360px;
+    width: 100%;
     // border: 1px solid rgb(0, 200, 255);
 }
 

@@ -14,6 +14,13 @@ class EventsService {
         AppState.activeEvent = res.data
 
     }
+
+    async createEvent(data) {
+        const res = await api.post('/api/events', data)
+        logger.log(res.data)
+        AppState.events.unshift(res.data)
+        return res.data
+    }
 }
 
 export const eventsService = new EventsService()
