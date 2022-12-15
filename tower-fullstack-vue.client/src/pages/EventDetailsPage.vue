@@ -12,8 +12,8 @@
                     <section class="row">
                         <!-- FIXME only owner can cancel event, also work on colors-->
                         <div v-if="account.id == activeEvent.creatorId" class="col-12 text-end">
-                            <button class="btn btn-info me-3">Update Event</button>
-                            <button class="btn btn-danger m-3">Cancel Event</button>
+                            <button class="btn btn-success me-3">Update Event</button>
+                            <button class="btn btn-primary m-3">Cancel Event</button>
                         </div>
                     </section>
                     <section class="row justify-content-between">
@@ -46,25 +46,15 @@
                             {{ activeEvent.capacity }} Spots Left
                         </div>
                         <div class="col-3 text-end">
-                            <button class="btn btn-warning me-3">Attend Event</button>
+                            <button v-if="!findMe" @click="createTicket" class="btn btn-warning me-3">Attend
+                                Event</button>
+                            <button v-else @click="removeTicket(findMe.id)" class="btn btn-danger me-3">Skip
+                                Event</button>
                         </div>
                     </section>
-
-
-
                 </div>
-
-
-
             </section>
-
-
         </div>
-
-
-
-
-
         <section class="row">
             <div class="col-12">
                 <p>See Who's Attending:</p>
@@ -99,6 +89,7 @@ import { useRoute } from 'vue-router';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { eventsService } from '../services/EventsService.js';
+import { ticketsService } from '../services/TicketsService.js';
 export default {
     setup() {
         const route = useRoute()
@@ -112,12 +103,23 @@ export default {
             }
         }
 
+        async function getTicketsByEventId() {
+            try {
+                await ticketsService.getTicketsByEventId(route.params.eventId)
+            } catch (error) {
+                logger.log(error)
+                Pop.error(error)
+            }
+        }
+
         onMounted(() => {
             getEventById()
+            getTicketsByEventId()
         })
         return {
             account: computed(() => AppState.account),
             activeEvent: computed(() => AppState.activeEvent),
+            tickets: computed(() => AppState.tickets),
             coverImg: computed(() => {
                 if (AppState.activeEvent) {
                     return `url('${AppState.activeEvent.coverImg}')`
@@ -125,7 +127,26 @@ export default {
                 else {
                     return `url('https://thiscatdoesnotexist.com')`
                 }
-            })
+            }),
+            findMe: computed(() => AppState.tickets.find(t => t.accountId == AppState.account.id)),
+            async createTicket() {
+                try {
+                    await ticketsService.createTicket({ eventId: route.params.eventId })
+                } catch (error) {
+                    logger.log(error)
+                    Pop.error(error)
+                }
+            },
+            async removeTicket(ticketId) {
+                try {
+                    if (await Pop.confirm('Cancel your ticket?', 'You will lose your spot', "That's OK", 'info')) {
+                        await ticketsService.removeTicket(ticketId)
+                    }
+                } catch (error) {
+                    logger.log(error)
+                    Pop.error(error)
+                }
+            }
         }
     }
 };

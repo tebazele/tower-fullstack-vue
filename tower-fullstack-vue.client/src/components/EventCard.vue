@@ -3,10 +3,12 @@
     <router-link :to="{ name: 'EventDetails', params: { eventId: event.id } }">
         <div class="event-image border-top border-start border-end border-1 border-dark m-2">
             <div class="overlay px-3">
-                <h5 class="pt-1 fw-bold text-light">{{ event.name }}</h5>
+                <h6 class="pt-1 fw-bold text-light">{{ event.name }}</h6>
                 <span class="text-secondary">{{ event.location }}</span>
                 <br>
-                <span class="text-secondary">{{ event.startDate }}</span>
+                <span class="text-secondary">{{ new Date(event.startDate).toLocaleDateString() }} {{ new
+                        Date(event.startDate).toLocaleTimeString()
+                }}</span>
                 <br>
                 <span class="text-secondary flt-rgt py-2">{{ event.capacity }} Spots Left</span>
             </div>

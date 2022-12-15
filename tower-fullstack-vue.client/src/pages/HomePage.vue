@@ -14,17 +14,17 @@
         </section>
       </div>
       <div class="col-md-6 col-12 d-flex bg-dark justify-content-between p-md-0 px-4 elevation-3">
-        <button class="btn btn-outline-light my-2 me-1 ms-3 stnd-w">All</button>
-        <button class="btn btn-outline-light my-2 mx-1 stnd-w">Concerts</button>
-        <button class="btn btn-outline-light my-2 mx-1 stnd-w">Conventions</button>
-        <button class="btn btn-outline-light my-2 me-4 ms-1 stnd-w">Digital</button>
+        <button @click="filterBy = ''" class="btn btn-outline-light my-2 me-1 ms-3 stnd-w">All</button>
+        <button @click="filterBy = 'concert'" class="btn btn-outline-light my-2 mx-1 stnd-w">Concerts</button>
+        <button @click="filterBy = 'convention'" class="btn btn-outline-light my-2 mx-1 stnd-w">Conventions</button>
+        <button @click="filterBy = 'digital'" class="btn btn-outline-light my-2 me-4 ms-1 stnd-w">Digital</button>
       </div>
       <div class="col-md-6 col-12 d-flex bg-dark justify-content-between p-md-0 px-4 elevation-3">
 
-        <button class="btn btn-outline-light my-2 me-1 ms-4 stnd-w">Exhibits</button>
-        <button class="btn btn-outline-light my-2 mx-1 stnd-w">Expos</button>
-        <button class="btn btn-outline-light my-2 mx-1 stnd-w">Sports</button>
-        <button class="btn btn-outline-light my-2 ms-1 me-3 stnd-w">Other</button>
+        <button @click="filterBy = 'exhibit'" class="btn btn-outline-light my-2 me-1 ms-4 stnd-w">Exhibits</button>
+        <button @click="filterBy = 'expo'" class="btn btn-outline-light my-2 mx-1 stnd-w">Expos</button>
+        <button @click="filterBy = 'sport'" class="btn btn-outline-light my-2 mx-1 stnd-w">Sports</button>
+        <button @click="filterBy = 'other'" class="btn btn-outline-light my-2 ms-1 me-3 stnd-w">Other</button>
       </div>
 
       <div class="col-12 mt-4">
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from '@vue/runtime-core'
+import { computed, onMounted, ref } from '@vue/runtime-core'
 import { eventsService } from '../services/EventsService.js'
 import { logger } from '../utils/Logger.js'
 import Pop from '../utils/Pop.js'
@@ -51,6 +51,7 @@ import { AppState } from '../AppState.js'
 import EventCard from '../components/EventCard.vue'
 export default {
   setup() {
+    const filterBy = ref("")
     async function getEvents() {
       try {
         await eventsService.getEvents()
@@ -64,7 +65,14 @@ export default {
       getEvents();
     });
     return {
-      events: computed(() => AppState.events)
+      filterBy,
+      events: computed(() => {
+        if (filterBy.value == "") {
+          return AppState.events;
+        } else {
+          return AppState.events.filter(e => e.type == filterBy.value)
+        }
+      })
     }
   },
   components: { EventCard }

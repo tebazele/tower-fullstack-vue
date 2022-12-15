@@ -16,11 +16,9 @@
   <!-- <footer class="bg-dark text-light">
     Made for Tower by Jeanne
   </footer> -->
-  <div class="modal fade" id="createEvent" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <CreateEventModal />
-    </div>
-  </div>
+  <ModalComponent id="createEvent">
+    <CreateEventForm />
+  </ModalComponent>
 </template>
 
 <script>
@@ -29,7 +27,8 @@ import { computed } from 'vue'
 import { AppState } from './AppState'
 import Login from './components/Login.vue'
 import Navbar from './components/Navbar.vue'
-import CreateEventModal from './components/CreateEventModal.vue'
+import ModalComponent from './components/ModalComponent.vue'
+import CreateEventForm from './components/CreateEventForm.vue'
 
 
 export default {
@@ -38,7 +37,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar, Login, CreateEventModal }
+  components: { Navbar, Login, ModalComponent, CreateEventForm }
 }
 </script>
 <style lang="scss">
