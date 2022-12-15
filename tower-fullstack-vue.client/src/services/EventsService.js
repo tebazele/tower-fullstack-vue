@@ -21,6 +21,24 @@ class EventsService {
         AppState.events.unshift(res.data)
         return res.data
     }
+
+    async updateEvent(eventId, body) {
+        if (body.startDate) {
+            const res = await api.put('/api/events/' + eventId, body)
+            logger.log('edited event:', res.data)
+        } else {
+            body.startDate = AppState.activeEvent.startDate
+            const res = await api.put('/api/events/' + eventId, body)
+            logger.log('edited event:', res.data)
+        }
+
+    }
+
+    async cancelEvent(eventId) {
+        const res = await api.delete('/api/events/' + eventId)
+        logger.log('event should be isCanceled: true', res.data)
+
+    }
 }
 
 export const eventsService = new EventsService()

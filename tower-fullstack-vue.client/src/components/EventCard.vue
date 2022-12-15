@@ -1,19 +1,31 @@
 <template>
-    <!-- TODO add router link to event details page -->
-    <router-link :to="{ name: 'EventDetails', params: { eventId: event.id } }">
-        <div class="event-image border-top border-start border-end border-1 border-dark m-2">
-            <div class="overlay px-3">
-                <h6 class="pt-1 fw-bold text-light">{{ event.name }}</h6>
-                <span class="text-secondary">{{ event.location }}</span>
-                <br>
-                <span class="text-secondary">{{ new Date(event.startDate).toLocaleDateString() }} {{ new
-                        Date(event.startDate).toLocaleTimeString()
-                }}</span>
-                <br>
-                <span class="text-secondary flt-rgt py-2">{{ event.capacity }} Spots Left</span>
+    <div v-if="!event.isCanceled">
+        <router-link :to="{ name: 'EventDetails', params: { eventId: event.id } }">
+            <div class="event-image border-top border-start border-end border-1 border-dark m-2">
+                <div class="overlay px-3">
+                    <h6 class="pt-1 fw-bold text-light">{{ event.name }}</h6>
+                    <span class="text-secondary">{{ event.location }}</span>
+                    <br>
+                    <span class="text-secondary">{{ new Date(event.startDate).toLocaleDateString() }} {{ new
+                            Date(event.startDate).toLocaleTimeString()
+                    }}</span>
+                    <br>
+                    <span class="text-secondary flt-rgt py-2">{{ event.capacity }} Spots Left</span>
+                </div>
             </div>
-        </div>
-    </router-link>
+        </router-link>
+    </div>
+    <div v-else>
+        <router-link :to="{ name: 'EventDetails', params: { eventId: event.id } }">
+            <div class="event-image border-top border-start border-end border-1 border-dark m-2">
+                <h1 class="text-danger text-center mt-5 fw-bold">CANCELED</h1>
+                <div class="overlay-pink px-3">
+                    <h6 class="pt-1 fw-bold text-light">{{ event.name }}</h6>
+                    <span class="text-secondary">{{ event.location }}</span>
+                </div>
+            </div>
+        </router-link>
+    </div>
 
 
 
@@ -54,6 +66,16 @@ export default {
     bottom: 0;
     border-top: 1px solid rgb(0, 200, 255);
     border-bottom: 1px solid #2A2D3A;
+}
+
+.overlay-pink {
+    background-color: rgba(255, 0, 51, 0.613);
+    min-height: 10vh;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid rgb(255, 0, 51);
+    border-bottom: 1px solid rgb(255, 0, 51);
 }
 
 .flt-rgt {

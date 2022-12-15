@@ -44,7 +44,7 @@ class EventsService {
         event.isCanceled = !event.isCanceled
         await event.save()
 
-        return `archived ${event.name}`
+        return event
     }
 
 }

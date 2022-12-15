@@ -39,8 +39,8 @@
           </p>
         </router-link>
         <!-- NOTE opens model with create form -->
-        <button class="btn btn-success mb-md-3 me-2 me-md-0" data-bs-toggle="modal" data-bs-target="#createEvent"><span
-            class="mdi mdi-plus"> Event</span></button>
+        <button class="btn btn-success bg-success mb-md-3 me-2 me-md-0" data-bs-toggle="modal"
+          data-bs-target="#createEvent"><span class="mdi mdi-plus"> Event</span></button>
         <button class="btn btn-outline-light" @click="logout">Logout</button>
       </div>
     </div>
