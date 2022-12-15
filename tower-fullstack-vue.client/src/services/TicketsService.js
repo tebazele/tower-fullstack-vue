@@ -24,6 +24,12 @@ class TicketsService {
         logger.log('got tickets for this event', res.data)
         AppState.tickets = res.data
     }
+
+    async getMyTicketEvents() {
+        const res = await api.get('account/tickets')
+        logger.log('got my tickets to events', res.data)
+        AppState.myTickets = res.data
+    }
 }
 
 export const ticketsService = new TicketsService()

@@ -49,13 +49,16 @@
                         </div>
                     </section>
                     <section class="row justify-content-between align-items-end">
-                        <div v-if="!activeEvent.isCanceled" class="col-5">
+                        <div v-if="!activeEvent.isCanceled && activeEvent.capacity > 0" class="col-5">
                             {{ activeEvent.capacity }} Spots Left
+                        </div>
+                        <div v-else-if="!activeEvent.isCanceled && activeEvent.capacity == 0" class="col-5">
+                            Event Sold Out
                         </div>
                         <div v-else class="col-5">
                             Event Canceled
                         </div>
-                        <div v-if="!activeEvent.isCanceled" class="col-3 text-end">
+                        <div v-if="!activeEvent.isCanceled && activeEvent.capacity > 0" class="col-3 text-end">
                             <button v-if="!findMe" @click="createTicket" class="btn btn-warning bg-warning me-3">Attend
                                 Event</button>
                             <button v-else @click="removeTicket(findMe.id)" class="btn btn-danger me-3">Skip

@@ -32,7 +32,6 @@
           <!-- v-if="events" -->
           <div v-for="e in events" :key="e.id" class="col-3">
             <!-- {{ e.name }} -->
-
             <EventCard :event="e" />
           </div>
         </section>
