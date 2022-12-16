@@ -13,9 +13,9 @@
     </section>
 
   </main>
-  <!-- <footer class="bg-dark text-light">
-    Made for Tower by Jeanne
-  </footer> -->
+  <footer class="bg-dark text-light">
+    <p class="m-3">MADE FOR TOWER BY JEANNE</p>
+  </footer>
   <ModalComponent id="createEvent">
     <CreateEventForm />
   </ModalComponent>

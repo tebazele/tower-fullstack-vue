@@ -1,7 +1,7 @@
 <template>
     <div v-if="!event.isCanceled">
         <router-link :to="{ name: 'EventDetails', params: { eventId: event.id } }">
-            <div class="event-image border-top border-start border-end border-1 border-dark m-2">
+            <div class="event-image border-top border-start border-end border-1 border-dark m-2 elevation-5">
                 <div class="overlay px-3">
                     <h6 class="pt-1 fw-bold text-light">{{ event.name }}</h6>
                     <span class="text-secondary">{{ event.location }}</span>
@@ -18,10 +18,16 @@
     <div v-else>
         <router-link :to="{ name: 'EventDetails', params: { eventId: event.id } }">
             <div class="event-image border-top border-start border-end border-1 border-dark m-2">
-                <h1 class="text-danger text-center mt-5 fw-bold">CANCELED</h1>
-                <div class="overlay-pink px-3">
-                    <h6 class="pt-1 fw-bold text-light">{{ event.name }}</h6>
-                    <span class="text-secondary">{{ event.location }}</span>
+                <!-- <h1 class="text-danger text-center mt-5 fw-bold text-shadow">CANCELLED</h1> -->
+                <div class="overlay-pink px-3 elevation-5">
+                    <div class="text-center pt-5">
+                        <h1 class="text-light text-center caveat-font text-shadow">CANCELLED</h1>
+                        <h6 class="pt-1 fw-bold text-light">{{ event.name }}</h6>
+                        <span class="text-secondary">{{ event.location }}</span>
+                        <!-- <br>
+                        <span class="text-secondary flt-rgt py-2">No capacity</span> -->
+
+                    </div>
                 </div>
             </div>
         </router-link>
@@ -54,7 +60,7 @@ export default {
     background-image: v-bind(coverImg);
     background-position: center;
     background-size: cover;
-    min-height: 47vh;
+    min-height: 32vh;
     position: relative;
 }
 
@@ -69,8 +75,8 @@ export default {
 }
 
 .overlay-pink {
-    background-color: rgba(255, 0, 51, 0.613);
-    min-height: 10vh;
+    background-color: rgba(255, 0, 51, 0.45);
+    height: 100%;
     width: 100%;
     position: absolute;
     bottom: 0;
@@ -81,5 +87,10 @@ export default {
 .flt-rgt {
     position: relative;
     float: right;
+}
+
+.text-shadow {
+    text-shadow: 1px 1px whitesmoke;
+    font-size: 52px;
 }
 </style>

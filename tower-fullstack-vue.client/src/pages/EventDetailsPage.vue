@@ -3,14 +3,14 @@
         <section class="row justify-content-center" v-if="activeEvent.id">
             <div class="col-12 details-bg my-3" :class="{ 'details-bg-image': activeEvent }"></div>
         </section>
-        <div class="pos-abs border-blue p-4 my-2">
+        <div class="border-blue p-4 my-2 pos-abs" :class="{ cancelled: activeEvent.isCanceled }">
             <section class="row justify-content-between">
 
                 <img v-if="!activeEvent.isCanceled" :src="activeEvent.coverImg"
                     class="col-4 p-0 ms-4 cover-img border-blue" />
 
-                <div v-else class="col-4 p-0 ms-4 cancel-img border-blue">
-                    <h1 class="text-center mt-5">CANCELED</h1>
+                <div v-else class="col-4 ms-4 p-5 cancel-img overlay-pink">
+                    <h1 class="text-center mt-5 caveat-font fs-xl">CANCELLED</h1>
                 </div>
                 <div class="col-7 text-light">
                     <section class="row">
@@ -20,7 +20,7 @@
                             <button data-bs-toggle="offcanvas" data-bs-target="#editEvent" aria-controls="editEvent"
                                 class="btn btn-success bg-success me-3">Update
                                 Event</button>
-                            <button @click="cancelEvent" class="btn btn-dark bg-info m-3">Cancel Event</button>
+                            <button @click="cancelEvent" class="btn btn-secondary bg-info m-3">Cancel Event</button>
                         </div>
                     </section>
                     <section class="row justify-content-between">
@@ -44,8 +44,8 @@
                         </div>
                     </section>
                     <section class="row">
-                        <div class="col-12">
-                            <p>{{ activeEvent.description }}</p>
+                        <div class="col-12 mb-3">
+                            <p class="truncate-text">{{ activeEvent.description }}</p>
                         </div>
                     </section>
                     <section class="row justify-content-between align-items-end">
@@ -56,13 +56,23 @@
                             Event Sold Out
                         </div>
                         <div v-else class="col-5">
-                            Event Canceled
+
                         </div>
                         <div v-if="!activeEvent.isCanceled && activeEvent.capacity > 0" class="col-3 text-end">
-                            <button v-if="!findMe" @click="createTicket" class="btn btn-warning bg-warning me-3">Attend
-                                Event</button>
-                            <button v-else @click="removeTicket(findMe.id)" class="btn btn-danger me-3">Skip
-                                Event</button>
+                            <div v-if="account.id">
+                                <button v-if="!findMe" @click="createTicket"
+                                    class="btn btn-warning bg-warning me-3">Attend
+                                    Event</button>
+                                <button v-else @click="removeTicket(findMe.id)" class="btn btn-danger me-3">Skip
+                                    Event</button>
+                            </div>
+                            <div v-else title="Please log in to attend">
+                                <button v-if="!findMe" @click="createTicket" class="btn btn-warning bg-warning me-3"
+                                    disabled>Attend
+                                    Event</button>
+                                <button v-else @click="removeTicket(findMe.id)" class="btn btn-danger me-3">Skip
+                                    Event</button>
+                            </div>
                         </div>
                     </section>
                 </div>
@@ -70,7 +80,7 @@
         </div>
         <section class="row">
             <div class="col-12">
-                <p>See Who's Attending:</p>
+                <p class="text-light">See Who's Attending:</p>
             </div>
             <!-- TODO get attendees and add here -->
             <div v-if="!tickets[0] && !activeEvent.isCanceled" class="col-12 bg-dark">
@@ -79,13 +89,13 @@
             <div v-else-if="tickets && !activeEvent.isCanceled" class="col-12 bg-dark">
                 <section class="d-flex">
                     <div v-for="t in tickets" :key="t.id">
-                        <img class="img-fluid rounded-circle  tiny-img p-1" :src="t.profile.picture"
+                        <img class="img-fluid rounded-circle tiny-img m-1" :src="t.profile.picture"
                             :title='t.profile.name' />
                     </div>
                 </section>
             </div>
             <div v-else class="col-12 bg-dark">
-                <h3 class="text-light mt-1">This event has been canceled</h3>
+                <h2 class="text-light mt-1 caveat-font">This event has been canceled</h2>
             </div>
         </section>
         <!-- SECTION Comments  -->
@@ -93,10 +103,10 @@
             <div class="col-9">
                 <section class="row">
                     <div class="col-12 pt-5">
-                        <p>What are people saying</p>
+                        <p class="text-light">What are people saying</p>
                     </div>
                     <!-- FIXME comment out min-height once component exists -->
-                    <div class="col-12 bg-dark min-height">
+                    <div class="col-12 bg-dark mb-5">
                         <section class="row">
                             <div class="col-12 text-end">
                                 <p class="m-4 text-success">Join the Conversation</p>
@@ -109,7 +119,7 @@
                             </div>
                         </section>
                         <section class="row">
-                            <div class="col-12 my-3" v-for="c in comments" :key="c.id">
+                            <div class="col-12 mb-5" v-for="c in comments" :key="c.id">
                                 <Comments :comment="c" />
                                 <!-- a comment {{ c }} -->
                             </div>
@@ -286,7 +296,7 @@ export default {
 <style lang="scss" scoped>
 .details-bg {
     // background-image: v-bind(coverImg);
-    min-height: 360px;
+    height: 360px;
 
 }
 
@@ -308,12 +318,23 @@ export default {
 
 .pos-abs {
     position: absolute;
-    top: 8px;
+    top: 6px;
     left: 0;
-    background-color: #122f787a;
-    height: 360px;
+    background-color: #56c7fb73;
+    height: 362px;
     width: 100%;
     // border: 1px solid rgb(0, 200, 255);
+}
+
+.cancelled {
+    position: absolute;
+    background-image: url('../assets/img/cancelled.png');
+    background-position: right -140px bottom -20px;
+    top: 6px;
+    left: 0;
+    background-color: rgba(255, 0, 51, 0.25);
+    height: 362px;
+    width: 100%;
 }
 
 .border-blue {
@@ -323,22 +344,41 @@ export default {
 .tiny-img {
     width: 7vh;
     height: 7vh;
+    border: 1px solid #757e9f;
 }
 
 .cover-img {
     position: relative;
     height: 312px;
     max-width: 28vw;
+    object-fit: cover;
+    object-position: center;
 }
 
 .cancel-img {
     position: relative;
     height: 312px;
     max-width: 28vw;
-    color: #FF5977;
+    color: whitesmoke;
+}
+
+.fs-xl {
+    font-size: 62px;
 }
 
 input {
     width: 100%
+}
+
+.truncate-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 100px;
+}
+
+.overlay-pink {
+    background-color: #ff003340;
+    border-top: 1px solid rgb(255, 0, 51);
+    border-bottom: 1px solid rgb(255, 0, 51);
 }
 </style>

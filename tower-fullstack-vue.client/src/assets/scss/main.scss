@@ -17,6 +17,7 @@ body {
 
 main {
   flex-grow: 1;
+  font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 a {
@@ -44,4 +45,9 @@ form:invalid button[type="submit"] {
 
 .yatra-one {
   font-family: 'Yatra One', cursive;
+  font-size: 72px;
+}
+
+.caveat-font {
+  font-family: 'Caveat', cursive;
 }

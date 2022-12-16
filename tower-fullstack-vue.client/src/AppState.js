@@ -6,7 +6,7 @@ export const AppState = reactive({
   /** @type {import('./models/Account.js').Account} */
   account: {},
   events: [],
-  activeEvent: { coverImg: 'https://images.unsplash.com/photo-1494548162494-384bba4ab999?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80' },
+  activeEvent: { coverImg: 'https://www.saeinc.com/wp-content/uploads/2017/11/dark-grey-box.png' },
   tickets: [],
   myTickets: [],
   comments: []

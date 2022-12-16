@@ -1,18 +1,18 @@
 <template>
     <form @submit.prevent="createEvent">
         <label for="eventName">Event Name</label>
-        <input v-model="formData.name" type="text" id="eventName" />
+        <input v-model="formData.name" type="text" id="eventName" required />
         <label for="eventImg">Cover Image</label>
-        <input v-model="formData.coverImg" type="url" id="eventImg" />
+        <input v-model="formData.coverImg" type="url" id="eventImg" required />
         <label for="eventDesc">Description</label>
-        <input v-model="formData.description" type="text" id="eventDesc" />
+        <input v-model="formData.description" type="text" id="eventDesc" required />
         <label for="eventLocation">Location</label>
-        <input v-model="formData.location" type="text" id="eventLocation" />
+        <input v-model="formData.location" type="text" id="eventLocation" required />
         <label for="eventCapacity">Capacity</label>
-        <input v-model="formData.capacity" type="number" id="eventCapacity" />
+        <input v-model="formData.capacity" type="number" id="eventCapacity" required />
         <label for="eventDate">Start Date</label>
-        <input v-model="formData.startDate" id="eventDate" type="datetime-local" />
-        <select v-model="formData.type" class="form-select mt-3" id="eventType" aria-label="Type of Event">
+        <input v-model="formData.startDate" id="eventDate" type="datetime-local" required />
+        <select v-model="formData.type" class="form-select mt-3" id="eventType" aria-label="Type of Event" required>
             <option value="concert">Concert</option>
             <option value="convention">Convention</option>
             <option value="digital">Digital Event</option>

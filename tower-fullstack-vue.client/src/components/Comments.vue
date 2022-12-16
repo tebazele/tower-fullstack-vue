@@ -5,7 +5,7 @@
                 class="img-fluid comment-pic rounded-circle ms-3" />
         </div>
 
-        <div class="col-9 bg-secondary me-4 px-5 py-3">
+        <div class="col-9 bg-secondary me-4 px-5 py-3 rounded">
             <section class="row">
                 <div class="col-10">
                     <h6 class="text-primary">{{ comment.creator.name }}</h6>

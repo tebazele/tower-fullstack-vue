@@ -1,9 +1,17 @@
 <template>
-    <form @submit.prevent="createComment">
-        <textarea v-model="commentReq.body" placeholder="Tell the people..." class="w-100 rounded text-dark"
-            rows="5"></textarea>
+    <form @submit.prevent="createComment" v-if="account.id">
+        <textarea v-model="commentReq.body" placeholder="Tell the people..." class="w-100 rounded text-dark p-4"
+            rows="3"></textarea>
         <div class="text-end">
             <button class="btn btn-success bg-success mt-3">Submit</button>
+
+        </div>
+    </form>
+    <form @submit.prevent="createComment" v-else title="Please log in to comment :)">
+        <textarea disabled v-model="commentReq.body" placeholder="Please log in to comment"
+            class="w-100 rounded text-dark p-4" rows="3"></textarea>
+        <div class="text-end">
+            <button class="btn btn-success bg-success mt-3" disabled>Submit</button>
 
         </div>
     </form>
@@ -23,6 +31,7 @@ export default {
         const route = useRoute()
         return {
             commentReq,
+            account: computed(() => AppState.account),
             async createComment() {
                 try {
 

@@ -26,11 +26,11 @@ class TicketsService {
         return tickets
     }
 
-    async removeTicket(ticketId) {
+    async removeTicket(userId, ticketId) {
         const foundTicket = await dbContext.Tickets.findById(ticketId)
         if (!foundTicket) throw new BadRequest(`no ticket at id: ${ticketId}`)
         // @ts-ignore
-        // if (foundTicket.accountId.toString() != userId) throw new Forbidden(`Cannot delete tickets for someone else`)
+        if (foundTicket.accountId.toString() != userId) throw new Forbidden(`Cannot delete tickets for someone else`)
 
         const event = await eventsService.getEventById(foundTicket.eventId)
         if (event.isCanceled) throw new Forbidden('This event is canceled. All tickets will be refunded.')

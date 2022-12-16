@@ -9,8 +9,8 @@
       <!-- <div type="button" class="bg-dark border-0 selectable no-select" data-bs-toggle="dropdown"
           aria-expanded="false"> -->
       <div v-if="account.picture || user.picture">
-        <img :src="account.picture || user.picture" alt="account photo" height="80"
-          class="rounded elevation-5 pt-2 pt-md-0" />
+        <img :src="account.picture || user.picture" alt="account photo"
+          class="rounded elevation-5 pt-2 pt-md-0 profile-pic" />
       </div>
       <!-- </div> -->
       <!-- <div class="dropdown-menu dropdown-menu-lg-left p-0" aria-labelledby="authDropdown">
@@ -39,9 +39,9 @@
           </p>
         </router-link>
         <!-- NOTE opens model with create form -->
-        <button class="btn btn-success bg-success mb-md-3 me-2 me-md-0" data-bs-toggle="modal"
-          data-bs-target="#createEvent"><span class="mdi mdi-plus"> Event</span></button>
-        <button class="btn btn-outline-light" @click="logout">Logout</button>
+        <button class="btn btn-success bg-success mb-md-3 me-2 me-md-0 btn-wdth" data-bs-toggle="modal"
+          data-bs-target="#createEvent"><span class="mdi mdi-plus">Event</span></button>
+        <button class="btn btn-outline-light btn-wdth" @click="logout">Logout</button>
       </div>
     </div>
   </span>
@@ -68,5 +68,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.profile-pic {
+  height: 80px;
+  width: 80px;
+  object-fit: cover;
+  object-position: center;
+}
 
+.btn-wdth {
+  width: 100%;
+}
 </style>

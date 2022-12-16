@@ -19,6 +19,7 @@ class EventsService {
         const res = await api.post('/api/events', data)
         logger.log(res.data)
         AppState.events.unshift(res.data)
+        AppState.activeEvent = res.data
         return res.data
     }
 
@@ -26,10 +27,12 @@ class EventsService {
         if (body.startDate) {
             const res = await api.put('/api/events/' + eventId, body)
             logger.log('edited event:', res.data)
+            AppState.activeEvent = res.data
         } else {
             body.startDate = AppState.activeEvent.startDate
             const res = await api.put('/api/events/' + eventId, body)
             logger.log('edited event:', res.data)
+            AppState.activeEvent = res.data
         }
 
     }
@@ -37,6 +40,9 @@ class EventsService {
     async cancelEvent(eventId) {
         const res = await api.delete('/api/events/' + eventId)
         logger.log('event should be isCanceled: true', res.data)
+        let index = AppState.events.findIndex(e => e.id == eventId)
+        AppState.events.splice(index, 1, res.data)
+        AppState.activeEvent = res.data
 
     }
 }

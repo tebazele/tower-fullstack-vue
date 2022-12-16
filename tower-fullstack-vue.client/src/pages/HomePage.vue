@@ -17,11 +17,11 @@
         <button @click="filterBy = ''" class="btn btn-outline-light my-2 me-1 ms-3 stnd-w">All</button>
         <button @click="filterBy = 'concert'" class="btn btn-outline-light my-2 mx-1 stnd-w">Concerts</button>
         <button @click="filterBy = 'convention'" class="btn btn-outline-light my-2 mx-1 stnd-w">Conventions</button>
-        <button @click="filterBy = 'digital'" class="btn btn-outline-light my-2 me-4 ms-1 stnd-w">Digital</button>
+        <button @click="filterBy = 'digital'" class="btn btn-outline-light my-2 me-3 ms-1 stnd-w">Digital</button>
       </div>
       <div class="col-md-6 col-12 d-flex bg-dark justify-content-between p-md-0 px-4 elevation-3">
 
-        <button @click="filterBy = 'exhibit'" class="btn btn-outline-light my-2 me-1 ms-4 stnd-w">Exhibits</button>
+        <button @click="filterBy = 'exhibit'" class="btn btn-outline-light my-2 me-1 ms-3 stnd-w">Exhibits</button>
         <button @click="filterBy = 'expo'" class="btn btn-outline-light my-2 mx-1 stnd-w">Expos</button>
         <button @click="filterBy = 'sport'" class="btn btn-outline-light my-2 mx-1 stnd-w">Sports</button>
         <button @click="filterBy = 'other'" class="btn btn-outline-light my-2 ms-1 me-3 stnd-w">Other</button>

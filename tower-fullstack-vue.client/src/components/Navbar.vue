@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
-      <div class="d-flex align-items-end">
+      <div class="d-flex align-items-center">
         <img alt="logo" src="../assets/img/giraffe.png" height="60" class="pb-1" />
-        <h1 class="yatra-one pt-2">TOWER</h1>
+        <h1 class="yatra-one pt-3">TOWER</h1>
       </div>
     </router-link>
     <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
