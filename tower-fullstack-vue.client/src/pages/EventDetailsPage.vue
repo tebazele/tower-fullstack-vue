@@ -3,11 +3,15 @@
         <section class="row justify-content-center" v-if="activeEvent.id">
             <div class="col-12 details-bg my-3" :class="{ 'details-bg-image': activeEvent }"></div>
         </section>
-        <div class="border-blue p-4 my-2 pos-abs" :class="{ cancelled: activeEvent.isCanceled }">
+        <div class="border-blue p-4 my-2 pos-abs"
+            :class="{ cancelled: activeEvent.isCanceled, soldout: activeEvent.capacity == 0 && !activeEvent.isCanceled }">
             <section class="row justify-content-between">
 
                 <img v-if="!activeEvent.isCanceled" :src="activeEvent.coverImg"
                     class="col-4 p-0 ms-4 cover-img border-blue" />
+                <div v-else-if="activeEvent.capacity == 0" class="col-4 ms-4 p-5 cancel-img overlay-purple">
+                    <h1 class="text-center mt-5 caveat-font fs-xl">SOLD OUT</h1>
+                </div>
 
                 <div v-else class="col-4 ms-4 p-5 cancel-img overlay-pink">
                     <h1 class="text-center mt-5 caveat-font fs-xl">CANCELLED</h1>
@@ -337,6 +341,17 @@ export default {
     width: 100%;
 }
 
+.soldout {
+    position: absolute;
+    background-image: url('../assets/img/soldOut.png');
+    background-position: right -20px bottom -20px;
+    top: 6px;
+    left: 0;
+    background-color: #d46fe67b;
+    height: 362px;
+    width: 100%;
+}
+
 .border-blue {
     border: 1px solid rgb(0, 200, 255);
 }
@@ -381,4 +396,10 @@ input {
     border-top: 1px solid rgb(255, 0, 51);
     border-bottom: 1px solid rgb(255, 0, 51);
 }
+
+// .overlay-purple {
+//     background-color: #d46fe68d;
+//     border-top: 1px solid #d46fe6;
+//     border-bottom: 1px solid #d46fe6;
+// }
 </style>

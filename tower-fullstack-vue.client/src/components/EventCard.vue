@@ -1,5 +1,5 @@
 <template>
-    <div v-if="!event.isCanceled">
+    <div v-if="!event.isCanceled && event.capacity > 0">
         <router-link :to="{ name: 'EventDetails', params: { eventId: event.id } }">
             <div class="event-image border-top border-start border-end border-1 border-dark m-2 elevation-5">
                 <div class="overlay px-3">
@@ -15,6 +15,24 @@
             </div>
         </router-link>
     </div>
+
+    <div v-else-if="!event.isCanceled && event.capacity == 0">
+        <router-link :to="{ name: 'EventDetails', params: { eventId: event.id } }">
+            <div class="event-image border-top border-start border-end border-1 border-dark m-2">
+                <!-- <h1 class="text-danger text-center mt-5 fw-bold text-shadow">CANCELLED</h1> -->
+                <div class="overlay-soldout px-3 elevation-5">
+                    <div class="text-center pt-5">
+                        <h1 class="text-light text-center caveat-font text-shadow">SOLD OUT</h1>
+                        <h6 class="pt-1 fw-bold text-light">{{ event.name }}</h6>
+                        <span class="text-secondary">{{ event.location }}</span>
+                        <!-- <br>
+                        <span class="text-secondary flt-rgt py-2">No capacity</span> -->
+
+                    </div>
+                </div>
+            </div>
+        </router-link>
+    </div>
     <div v-else>
         <router-link :to="{ name: 'EventDetails', params: { eventId: event.id } }">
             <div class="event-image border-top border-start border-end border-1 border-dark m-2">
@@ -25,7 +43,7 @@
                         <h6 class="pt-1 fw-bold text-light">{{ event.name }}</h6>
                         <span class="text-secondary">{{ event.location }}</span>
                         <!-- <br>
-                        <span class="text-secondary flt-rgt py-2">No capacity</span> -->
+                            <span class="text-secondary flt-rgt py-2">No capacity</span> -->
 
                     </div>
                 </div>
@@ -82,6 +100,16 @@ export default {
     bottom: 0;
     border-top: 1px solid rgb(255, 0, 51);
     border-bottom: 1px solid rgb(255, 0, 51);
+}
+
+.overlay-soldout {
+    background-color: #d46fe67d;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid #d46fe6;
+    border-bottom: 1px solid #d46fe6;
 }
 
 .flt-rgt {
