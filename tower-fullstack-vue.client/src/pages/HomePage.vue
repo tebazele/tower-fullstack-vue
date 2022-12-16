@@ -26,8 +26,16 @@
         <button @click="filterBy = 'sport'" class="btn btn-outline-light my-2 mx-1 stnd-w">Sports</button>
         <button @click="filterBy = 'other'" class="btn btn-outline-light my-2 ms-1 me-3 stnd-w">Other</button>
       </div>
+      <div class="col-12 text-light">
+        <h5
+          v-if="filterBy == 'concert' || filterBy == 'convention' || filterBy == 'exhibit' || filterBy == 'expo' || filterBy == 'sport'"
+          class="mt-2 ms-2 text-uppercase">{{ filterBy }}s</h5>
+        <h5 v-else-if="filterBy == 'digital'" class="mt-2 ms-2 text-uppercase">{{ filterBy }} events</h5>
+        <h5 v-else-if="filterBy == 'other'" class="mt-2 ms-2 text-uppercase">{{ filterBy }}</h5>
+        <h5 v-else class="mt-2 ms-2 text-uppercase">ALL</h5>
+      </div>
 
-      <div class="col-12 mt-4">
+      <div class="col-12 mt-2">
         <section class="row">
           <!-- v-if="events" -->
           <div v-for="e in events" :key="e.id" class="col-3">
@@ -102,6 +110,7 @@ export default {
 
 .box-shadow-1 {
   text-shadow: 2px 2px rgb(10, 10, 10);
+  margin-top: 5.5vh;
 }
 
 .stnd-w {

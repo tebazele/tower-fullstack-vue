@@ -76,9 +76,9 @@ export default {
 <style lang="scss" scoped>
 .event-image {
     background-image: v-bind(coverImg);
-    background-position: center;
+    background-position: bottom;
     background-size: cover;
-    min-height: 32vh;
+    min-height: 35vh;
     position: relative;
 }
 
@@ -119,6 +119,6 @@ export default {
 
 .text-shadow {
     text-shadow: 1px 1px whitesmoke;
-    font-size: 52px;
+    font-size: 42px;
 }
 </style>
