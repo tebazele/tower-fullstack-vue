@@ -1,14 +1,17 @@
 <template>
   <div class="container-fluid">
-    <section class="row">
-      <div class="col-12 bg-dark my-4">
-        <h5 class="text-light m-3">My Events</h5>
-      </div>
-      <!-- Event card area -->
-      <div class="col-3" v-for="t in myTickets" :key="t.id">
-        <EventCard :event="t.event" />
-      </div>
-    </section>
+    <div class="my-4 mx-3">
+      <section class="row bg-dark">
+        <div class="col-12 my-4 mx-3">
+          <h5 class="text-light m-3">My Events</h5>
+        </div>
+        <!-- Event card area -->
+        <div class="col-3 pb-5 mx-3" v-for="t in myTickets" :key="t.id">
+          <EventCard :event="t.event" class="border-3 border border-secondary" />
+        </div>
+      </section>
+
+    </div>
   </div>
 </template>
 

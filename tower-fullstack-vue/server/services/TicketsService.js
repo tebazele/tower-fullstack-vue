@@ -6,6 +6,7 @@ class TicketsService {
     async createTicket(body) {
         const foundEvent = await eventsService.getEventById(body.eventId)
         if (foundEvent.isCanceled) throw new Forbidden('Sorry, this event is canceled. Please purchase a ticket for another event')
+        if (foundEvent.capacity <= 0) throw new BadRequest('Sorry! This event is sold out')
         const newTicket = await dbContext.Tickets.create(body)
         await newTicket.populate('profile event')
         // @ts-ignore
@@ -25,11 +26,11 @@ class TicketsService {
         return tickets
     }
 
-    async removeTicket(userId, ticketId) {
+    async removeTicket(ticketId) {
         const foundTicket = await dbContext.Tickets.findById(ticketId)
         if (!foundTicket) throw new BadRequest(`no ticket at id: ${ticketId}`)
         // @ts-ignore
-        if (foundTicket.accountId.toString() != userId) throw new Forbidden(`Cannot delete tickets for someone else`)
+        // if (foundTicket.accountId.toString() != userId) throw new Forbidden(`Cannot delete tickets for someone else`)
 
         const event = await eventsService.getEventById(foundTicket.eventId)
         if (event.isCanceled) throw new Forbidden('This event is canceled. All tickets will be refunded.')

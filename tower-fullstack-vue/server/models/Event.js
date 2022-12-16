@@ -3,7 +3,7 @@ const ObjectId = Schema.Types.ObjectId
 
 export const EventSchema = new Schema({
     // id: { type: ObjectId },
-    creatorId: { type: ObjectId, required: true },
+    creatorId: { type: ObjectId, required: true, ref: 'Account' },
     name: { type: String, required: true, maxLength: 30 },
     description: { type: String, required: true, maxLength: 1000 },
     coverImg: { type: String, required: true, maxLength: 255 },

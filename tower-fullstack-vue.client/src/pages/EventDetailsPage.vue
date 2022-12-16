@@ -88,6 +88,7 @@
                 <h3 class="text-light mt-1">This event has been canceled</h3>
             </div>
         </section>
+        <!-- SECTION Comments  -->
         <section class="row justify-content-center">
             <div class="col-9">
                 <section class="row">
@@ -96,7 +97,23 @@
                     </div>
                     <!-- FIXME comment out min-height once component exists -->
                     <div class="col-12 bg-dark min-height">
-                        <!-- TODO comments component -->
+                        <section class="row">
+                            <div class="col-12 text-end">
+                                <p class="m-4 text-success">Join the Conversation</p>
+                            </div>
+                            <!-- SECTION post comment -->
+
+                            <div class="col-12 p-4">
+                                <CommentForm />
+
+                            </div>
+                        </section>
+                        <section class="row">
+                            <div class="col-12 my-3" v-for="c in comments" :key="c.id">
+                                <Comments :comment="c" />
+                                <!-- a comment {{ c }} -->
+                            </div>
+                        </section>
 
                     </div>
                 </section>
@@ -152,93 +169,116 @@ import Pop from '../utils/Pop.js';
 import { eventsService } from '../services/EventsService.js';
 import { ticketsService } from '../services/TicketsService.js';
 import { Offcanvas } from 'bootstrap';
+import Comments from '../components/Comments.vue';
+import { commentsService } from '../services/CommentsService.js'
+import CommentForm from '../components/CommentForm.vue';
 export default {
     setup() {
-        const route = useRoute()
-        const editable = ref({})
+        const route = useRoute();
+        const editable = ref({});
+        // const commentReq = ref({})
         watchEffect(() => {
             if (AppState.activeEvent.id) {
-                editable.value = AppState.activeEvent
+                editable.value = { ...AppState.activeEvent };
             }
-        })
+            if (AppState.activeEvent.isCanceled) {
+                logger.log('this event is canceled')
+            }
+        });
         async function getEventById() {
             try {
-                await eventsService.getEventById(route.params.eventId)
-            } catch (error) {
-                logger.log(error)
-                Pop.error(error)
+                await eventsService.getEventById(route.params.eventId);
+            }
+            catch (error) {
+                logger.log(error);
+                Pop.error(error);
             }
         }
-
         async function getTicketsByEventId() {
             try {
-                await ticketsService.getTicketsByEventId(route.params.eventId)
+                await ticketsService.getTicketsByEventId(route.params.eventId);
+            }
+            catch (error) {
+                logger.log(error);
+                Pop.error(error);
+            }
+        }
+
+        async function getComments() {
+            try {
+                await commentsService.getComments(route.params.eventId)
+                logger.log(route.params.eventId)
             } catch (error) {
                 logger.log(error)
                 Pop.error(error)
             }
         }
-
         onMounted(() => {
-            getEventById()
-            getTicketsByEventId()
-
-        })
+            getEventById();
+            getTicketsByEventId();
+            getComments();
+        });
         return {
             editable,
+            route,
             account: computed(() => AppState.account),
             activeEvent: computed(() => AppState.activeEvent),
+            comments: computed(() => AppState.comments),
             tickets: computed(() => AppState.tickets),
             coverImg: computed(() => {
                 if (AppState.activeEvent) {
-                    return `url('${AppState.activeEvent.coverImg}')`
+                    return `url('${AppState.activeEvent.coverImg}')`;
                 }
                 else {
-                    return `url('https://thiscatdoesnotexist.com')`
+                    return `url('https://thiscatdoesnotexist.com')`;
                 }
             }),
             findMe: computed(() => AppState.tickets.find(t => t.accountId == AppState.account.id)),
             async createTicket() {
                 try {
-                    await ticketsService.createTicket({ eventId: route.params.eventId })
-                } catch (error) {
-                    logger.log(error)
-                    Pop.error(error)
+                    await ticketsService.createTicket({ eventId: route.params.eventId });
+                }
+                catch (error) {
+                    logger.log(error);
+                    Pop.error(error);
                 }
             },
             async removeTicket(ticketId) {
                 try {
-                    if (await Pop.confirm('Cancel your ticket?', 'You will lose your spot', "That's OK", 'info')) {
-                        await ticketsService.removeTicket(ticketId)
+                    if (await Pop.confirm("Cancel your ticket?", "You will lose your spot", "That's OK", "info")) {
+                        await ticketsService.removeTicket(ticketId);
                     }
-                } catch (error) {
-                    logger.log(error)
-                    Pop.error(error)
+                }
+                catch (error) {
+                    logger.log(error);
+                    Pop.error(error);
                 }
             },
             async updateEvent() {
                 try {
-                    await eventsService.updateEvent(route.params.eventId, editable.value)
-                    Pop.toast('Event updated')
-                    Offcanvas.getOrCreateInstance('#editEvent').hide()
-                } catch (error) {
-                    logger.log(error)
-                    Pop.error(error)
+                    await eventsService.updateEvent(route.params.eventId, editable.value);
+                    Pop.toast("Event updated");
+                    Offcanvas.getOrCreateInstance("#editEvent").hide();
+                }
+                catch (error) {
+                    logger.log(error);
+                    Pop.error(error);
                 }
             },
-
             async cancelEvent() {
                 try {
-                    if (await Pop.confirm('Are you sure you want to cancel this event?', 'All tickets will be refunded and attendees notified.')) {
-                        await eventsService.cancelEvent(route.params.eventId)
+                    if (await Pop.confirm("Are you sure you want to cancel this event?", "All tickets will be refunded and attendees notified.")) {
+                        await eventsService.cancelEvent(route.params.eventId);
                     }
-                } catch (error) {
-                    logger.log(error)
-                    Pop.error(error)
+                }
+                catch (error) {
+                    logger.log(error);
+                    Pop.error(error);
                 }
             }
-        }
-    }
+        };
+    },
+    components: { Comments, CommentForm }
 };
 </script>
 
